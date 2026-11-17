@@ -1,0 +1,277 @@
+/* Tailwind CSS v4: satu entry CSS untuk semua halaman. */
+@import "tailwindcss" source(none);
+@import "./pages/landing.css";
+
+@source "../views/**/*.blade.php";
+@source "../js/**/*.js";
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+
+/* Ubah palet/font di sini; utility dan CSS komponen akan mengikuti. */
+@theme {
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;
+  --color-chocolate: #1f1009;
+  --color-chocolate-soft: #2b140a;
+  --color-chocolate-deep: #190c07;
+  --color-surface: #3d1c06;
+  --color-cream: #fff8e7;
+  --color-accent: #f4e4bc;
+  --color-muted: #c5b7aa;
+  --color-sand: #bea686;
+  --color-quiet: #a79483;
+  --color-warm: #e0d5c8;
+}
+
+/* Reset & aksesibilitas bersama. hidden tetap menang atas utility display. */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
+  body {
+    margin: 0;
+    background: var(--color-chocolate);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-chocolate);
+  }
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  summary {
+    -webkit-tap-highlight-color: transparent;
+  }
+  a,
+  button {
+    touch-action: manipulation;
+  }
+  button,
+  summary {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 5px;
+  }
+}
+
+@layer components {
+  .shell {
+    width: min(1180px, calc(100% - 96px));
+    margin-inline: auto;
+  }
+  .serif {
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .muted {
+    color: var(--color-muted);
+  }
+  .brand {
+    font-size: 30px;
+    line-height: 0.74;
+    letter-spacing: -1.8px;
+    font-weight: 900;
+    display: inline-flex;
+    flex-direction: column;
+  }
+  .brand span:last-child {
+    margin-top: 5px;
+  }
+  .brand-dot {
+    position: relative;
+  }
+  .brand-dot::after {
+    content: "✦";
+    position: absolute;
+    top: -7px;
+    right: -13px;
+    font-size: 15px;
+    line-height: 1;
+  }
+  .pill {
+    min-height: 48px;
+    border: 1px solid var(--color-accent);
+    border-radius: 999px;
+    padding: 13px 23px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: var(--color-accent);
+    color: var(--color-chocolate);
+    font-size: 12px;
+    font-weight: 700;
+    transition:
+      background 0.2s,
+      transform 0.2s,
+      box-shadow 0.2s;
+    text-decoration: none;
+  }
+  .pill:hover {
+    background: var(--color-cream);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 22px #0002;
+  }
+  .pill-outline {
+    background: transparent;
+    color: var(--color-cream);
+    border-color: color-mix(in srgb, var(--color-accent) 31.37%, transparent);
+  }
+  .pill-outline:hover {
+    background: color-mix(in srgb, var(--color-accent) 7.06%, transparent);
+  }
+  .icon {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .nav-link {
+    color: #d7cbbe;
+    position: relative;
+    padding-block: 10px;
+    font-size: 12px;
+    transition: color 0.2s;
+  }
+  .nav-link:hover,
+  .nav-link[aria-current] {
+    color: var(--color-cream);
+  }
+  .nav-link[aria-current]::after {
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-accent);
+  }
+  .form-field {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 25.1%, transparent);
+    border-radius: 8px;
+    background: var(--color-chocolate);
+    color: var(--color-cream);
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+  .form-field::placeholder {
+    color: #ab9b8c;
+  }
+  .form-field:focus {
+    border-color: var(--color-accent);
+  }
+  input[type="date"] {
+    appearance: none;
+  }
+  input[type="date"]::-webkit-date-and-time-value {
+    text-align: left;
+  }
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  details > summary::after {
+    content: "+";
+    font-size: 18px;
+    font-weight: 400;
+  }
+  details[open] > summary::after {
+    content: "−";
+  }
+  .footer-link {
+    display: inline-block;
+    min-height: 36px;
+    padding-block: 8px;
+    color: var(--color-muted);
+    font-size: 12px;
+    text-align: left;
+  }
+  .footer-link:hover {
+    color: var(--color-cream);
+  }
+  .policy-dialog {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(520px, calc(100% - 32px));
+    max-height: calc(100dvh - 48px);
+    overflow-y: auto;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 25.1%, transparent);
+    border-radius: 18px;
+    padding: 28px;
+    background: var(--color-chocolate-soft);
+    color: var(--color-cream);
+  }
+  .policy-dialog::backdrop {
+    background: #000b;
+    backdrop-filter: blur(5px);
+  }
+  .skip-link {
+    position: fixed;
+    top: -100px;
+    left: 16px;
+    z-index: 100;
+    background: var(--color-accent);
+    color: var(--color-chocolate);
+    padding: 12px 20px;
+    border-radius: 8px;
+  }
+  .skip-link:focus {
+    top: 12px;
+  }
+  @media (min-width: 1024px) {
+    .mobile-panel {
+      display: none !important;
+    }
+  }
+  @media (max-width: 1023px) {
+    .shell {
+      width: calc(100% - 48px);
+    }
+  }
+  @media (max-width: 639px) {
+    .shell {
+      width: calc(100% - 40px);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
